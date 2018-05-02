@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/CarBrandBackend.iml" filepath="$PROJECT_DIR$/.idea/CarBrandBackend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../CodeTrain/.idea/CodeTrain.iml" filepath="$PROJECT_DIR$/../CodeTrain/.idea/CodeTrain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../HellspawnHunterBackend/.idea/HellspawnHunterBackend.iml" filepath="$PROJECT_DIR$/../HellspawnHunterBackend/.idea/HellspawnHunterBackend.iml" />
+    </modules>
+  </component>
+</project>
