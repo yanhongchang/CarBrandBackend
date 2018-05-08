@@ -1,3 +1,4 @@
+# -*-coding:utf-8-*-
 from django.db import models
 
 # Create your models here.
@@ -24,13 +25,13 @@ class CarBrandDetail(BaseModel):
     office_website = models.CharField(max_length=512)
 
     def __unicode__(self):
-        return self.carbrand_id
+        return self.carbrand_id.name_ch
 
 
 class ClassicModel(BaseModel):
-    carbrand_det = models.ForeignKey(CarBrandDetail)
+    carbrand_det = models.ForeignKey(CarBrandDetail, on_delete=models.CASCADE)
     image_url = models.CharField(max_length=1024, blank=True)
     guidence_price = models.CharField(max_length=128)
 
     def __unicode__(self):
-        return self.carbrand_det
+        return self.carbrand_det.carbrand_id.name_ch
