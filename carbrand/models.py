@@ -14,24 +14,17 @@ class CarBrand(BaseModel):
     name_en = models.CharField(max_length=128)
     image_url = models.CharField(max_length=1024, blank=True)
     country = models.CharField(max_length=128)
+    introduction = models.TextField(blank=False)
+    website = models.CharField(max_length=512)
 
     def __unicode__(self):
         return self.name_ch
 
 
-class CarBrandDetail(BaseModel):
-    carbrand_id = models.ForeignKey(CarBrand, on_delete=models.CASCADE)
-    introducetion = models.TextField()
-    office_website = models.CharField(max_length=512)
-
-    def __unicode__(self):
-        return self.carbrand_id.name_ch
-
-
 class ClassicModel(BaseModel):
-    carbrand_det = models.ForeignKey(CarBrandDetail, on_delete=models.CASCADE)
+    carbrand_ref = models.ForeignKey(CarBrand, on_delete=models.CASCADE)
     image_url = models.CharField(max_length=1024, blank=True)
     guidence_price = models.CharField(max_length=128)
 
     def __unicode__(self):
-        return self.carbrand_det.carbrand_id.name_ch
+        return self.carbrand_ref.name_ch
