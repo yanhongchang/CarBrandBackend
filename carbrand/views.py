@@ -1,5 +1,4 @@
 #from django.core.cache import cache
-from rest_framework import viewsets
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -32,6 +31,7 @@ from models import *
 #         #cache.set(obj.id, ob)
 #         return obj
 
+
 class CarbrandsViewSet(APIView):
 
     def get(self, format=None):
@@ -48,11 +48,11 @@ class CarbrandsViewSet(APIView):
         return Response(cs.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class carbrandDetailView(APIView):
+class CarbrandDetailView(APIView):
 
     def get_object(self, pk):
         try:
-            return CarBrand.object.get(pk=pk)
+            return CarBrand.objects.get(pk=pk)
         except CarBrand.DoesNotExist:
             raise Http404
 
@@ -61,15 +61,18 @@ class carbrandDetailView(APIView):
         cs = CarBrandSarializers(carbrand)
         return Response(cs.data)
 
-    def post(self, request, pk, format=None):
+    def put(self, request, pk, format=None):
         carbrand = self.get_object(pk)
+        print pk
+        print carbrand
         cs = CarBrandSarializers(carbrand, data=request.data)
         if cs.is_valid():
             cs.save()
             return Response(cs.data, status=status.HTTP_201_CREATED)
         return Response(cs.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, pk, format=None):
+    def delete(self, request, pk, format=None):
+        print pk
         carbrand = self.get_object(pk)
         carbrand.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

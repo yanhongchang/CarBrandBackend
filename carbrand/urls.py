@@ -17,4 +17,5 @@ from . import views
 
 urlpatterns = [
     url(r'^carbrands/', views.CarbrandsViewSet.as_view()),
+    url(r'^carbrand/(?P<pk>[0-9]+)/$', views.CarbrandDetailView.as_view()),
 ]
