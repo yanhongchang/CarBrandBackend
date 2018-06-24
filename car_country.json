@@ -1,37 +1,37 @@
 [{
-	"countryId": 1000,
-	"country": "德国"
+	"country_id": 1000,
+	"country_name_cn": "德国"
 }, {
-	"countryId": 2000,
-	"country": "日本"
+	"country_id": 2000,
+	"country_name_cn": "日本"
 }, {
-	"countryId": 3000,
-	"country": "中国"
+	"country_id": 3000,
+	"country_name_cn": "中国"
 }, {
-	"countryId": 4000,
-	"country": "美国"
+	"country_id": 4000,
+	"country_name_cn": "美国"
 }, {
-	"countryId": 5000,
-	"country": "韩国"
+	"country_id": 5000,
+	"country_name_cn": "韩国"
 }, {
-	"countryId": 6000,
-	"country": "捷克"
+	"country_id": 6000,
+	"country_name_cn": "捷克"
 }, {
-	"countryId": 7000,
-	"country": "法国"
+	"country_id": 7000,
+	"country_name_cn": "法国"
 }, {
-	"countryId": 8000,
-	"country": "瑞典"
+	"country_id": 8000,
+	"country_name_cn": "瑞典"
 }, {
-	"countryId": 9000,
-	"country": "英国"
+	"country_id": 9000,
+	"country_name_cn": "英国"
 }, {
-	"countryId": 10000,
-	"country": "意大利"
+	"country_id": 10000,
+	"country_name_cn": "意大利"
 }, {
-	"countryId": 20000,
-	"country": "其他"
+	"country_id": 20000,
+	"country_name_cn": "其他"
 }, {
-	"countryId": 11000,
-	"country": "荷兰"
+	"country_id": 11000,
+	"country_name_cn": "荷兰"
 }]

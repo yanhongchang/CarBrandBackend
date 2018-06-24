@@ -56,7 +56,7 @@ class CarbrandDetailView(APIView):
         except CarBrand.DoesNotExist:
             raise Http404
 
-    def get(self, pk, format=None):
+    def get(self, pk, format= None  ):
         carbrand = self.get_object(pk)
         cs = CarBrandSarializers(carbrand)
         return Response(cs.data)

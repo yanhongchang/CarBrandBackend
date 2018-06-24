@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from models import CarBrand, ClassicModel
+from models import CarBrand, Series
 
 
 class CarBrandSarializers(serializers.ModelSerializer):
@@ -9,8 +9,8 @@ class CarBrandSarializers(serializers.ModelSerializer):
         # fields = ('id', 'name')
 
 
-class ClassicModelSarializers(serializers.ModelSerializer):
+class SeriesSarializers(serializers.ModelSerializer):
     class Meta:
-        model = ClassicModel
+        model = Series
         fields = '__all__'
 
