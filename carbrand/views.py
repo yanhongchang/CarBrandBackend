@@ -36,8 +36,8 @@ class CarbrandsViewSet(APIView):
 
     def get(self, format=None):
         carbrand_list = CarBrand.objects.all()
-        print carbrand_list
         cs = CarBrandSarializers(carbrand_list, many=True)
+        print cs.data
         return Response(cs.data)
 
     def post(self, request, format=None):
@@ -56,14 +56,14 @@ class CarbrandDetailView(APIView):
         except CarBrand.DoesNotExist:
             raise Http404
 
-    def get(self, pk, format= None  ):
+    def get(self, request, pk, format= None ):
+        print pk
         carbrand = self.get_object(pk)
         cs = CarBrandSarializers(carbrand)
         return Response(cs.data)
 
     def put(self, request, pk, format=None):
         carbrand = self.get_object(pk)
-        print pk
         print carbrand
         cs = CarBrandSarializers(carbrand, data=request.data)
         if cs.is_valid():
