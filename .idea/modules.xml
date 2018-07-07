@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/CarBrandBackend.iml" filepath="$PROJECT_DIR$/.idea/CarBrandBackend.iml" />
       <module fileurl="file://$PROJECT_DIR$/../CodeTrain/.idea/CodeTrain.iml" filepath="$PROJECT_DIR$/../CodeTrain/.idea/CodeTrain.iml" />
       <module fileurl="file://$PROJECT_DIR$/../HellspawnHunterBackend/.idea/HellspawnHunterBackend.iml" filepath="$PROJECT_DIR$/../HellspawnHunterBackend/.idea/HellspawnHunterBackend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../eva/.idea/eva.iml" filepath="$PROJECT_DIR$/../eva/.idea/eva.iml" />
+      <module fileurl="file://$USER_HOME$/tmp/horizon/.idea/horizon.iml" filepath="$USER_HOME$/tmp/horizon/.idea/horizon.iml" />
     </modules>
   </component>
 </project>

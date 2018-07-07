@@ -20,6 +20,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="CodeTrain" />
     <orderEntry type="module" module-name="HellspawnHunterBackend" />
+    <orderEntry type="module" module-name="eva" />
+    <orderEntry type="module" module-name="horizon" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

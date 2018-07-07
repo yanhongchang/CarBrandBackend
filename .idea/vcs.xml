@@ -2,5 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/../HellspawnHunterBackend" vcs="Git" />
+    <mapping directory="$USER_HOME$/tmp/horizon" vcs="Git" />
   </component>
 </project>
