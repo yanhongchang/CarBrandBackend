@@ -55,5 +55,5 @@ def save_country_data():
                 print "insert failed"
 
 
-#save_carbrand_data()
+save_carbrand_data()
 #save_country_data()
