@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from models import CarBrand, Series,Country
+from models import CarBrand, Series, Country
 
 
 class CarBrandSarializers(serializers.ModelSerializer):

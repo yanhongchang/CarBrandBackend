@@ -3,15 +3,76 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework import mixins
-from rest_framework import generics
+#from rest_framework import mixins
+#from rest_framework import generics
 
 from serializers import CarBrandSarializers
-
-
+from forms import CarbrandResource
 from models import *
-# Create your views here.
 
+
+# ---- APIView version (new) -----
+class CarbrandListView(APIView):
+
+    def get(self, request):
+        carbrands = CarBrand.objects.all()
+        if carbrands:
+            code = 0
+        else:
+            code = 1
+        resp_data = {'code': code}
+        resp_data['msg'] = ''
+        resp_data['data'] = {}
+        resp_data['data']['carList'] = []
+
+        for carbrand in carbrands:
+            carbrand_dict = CarbrandResource(carbrand).to_list_dict()
+            resp_data['data']['carList'].append(carbrand_dict)
+        print resp_data
+        return Response(resp_data)
+
+
+class CarbrandDetailView(APIView):
+    """ carbrand detail function """
+    def get_object(self, pk):
+        try:
+            return CarBrand.objects.get(pk=pk)
+        except CarBrand.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        carbrand_detail = self.get_object(pk)
+        if carbrand_detail:
+            code = 0
+        else:
+            code = 1
+        carbrand_detail_dict = CarbrandResource(carbrand_detail)\
+            .to_detail_dict()
+        resp_data = {'code': code}
+        resp_data['msg'] = ''
+        resp_data['data'] = {}
+        resp_data['data']['carDetail'] = carbrand_detail_dict
+
+        return Response(resp_data)
+
+    def put(self, request, pk):
+        carbrand = self.get_object(pk)
+        print carbrand
+        cs = CarBrandSarializers(carbrand, data=request.data)
+        if cs.is_valid():
+            cs.save()
+            return Response(cs.data, status=status.HTTP_201_CREATED)
+        return Response(cs.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # def delete(self, request, pk):
+    #     print pk
+    #     carbrand = self.get_object(pk)
+    #     carbrand.delete()
+    #     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+# ---- model view set  ----
 
 # class CarbrandsViewSet(viewsets.ModelViewSet):
 #     """
@@ -35,12 +96,15 @@ from models import *
 #         return obj
 #
 #
+
+
+# ---- APIView old -----
+
 # class CarbrandsViewSet(APIView):
 #
 #     def get(self, format=None):
 #         carbrand_list = CarBrand.objects.all()
 #         cs = CarBrandSarializers(carbrand_list, many=True)
-#         print cs.data
 #         return Response(cs.data)
 #
 #     def post(self, request, format=None):
@@ -79,48 +143,50 @@ from models import *
 #         carbrand = self.get_object(pk)
 #         carbrand.delete()
 #         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+# class CarbrandsViewSet(mixins.ListModelMixin,
+#                   mixins.CreateModelMixin,
+#                   generics.GenericAPIView):
 #
-
-
-class CarbrandsViewSet(mixins.ListModelMixin,
-                  mixins.CreateModelMixin,
-                  generics.GenericAPIView):
-
-    queryset = CarBrand.objects.all()
-    serializer_class = CarBrandSarializers
-
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        return self.creat(request, *args, **kwargs)
-
-
-class CarbrandDetailView(APIView):
-
-    def get_object(self, pk):
-        try:
-            return CarBrand.objects.get(pk=pk)
-        except CarBrand.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format= None ):
-        print pk
-        carbrand = self.get_object(pk)
-        cs = CarBrandSarializers(carbrand)
-        return Response(cs.data)
-
-    def put(self, request, pk, format=None):
-        carbrand = self.get_object(pk)
-        print carbrand
-        cs = CarBrandSarializers(carbrand, data=request.data)
-        if cs.is_valid():
-            cs.save()
-            return Response(cs.data, status=status.HTTP_201_CREATED)
-        return Response(cs.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        print pk
-        carbrand = self.get_object(pk)
-        carbrand.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+#     queryset = CarBrand.objects.all()
+#     serializer_class = CarBrandSarializers
+#
+#     def get(self, request, *args, **kwargs):
+#         #return self.list(request, *args, **kwargs)
+#         carbrands = CarBrand.objects.all()
+#         print carbrands
+#
+#     def post(self, request, *args, **kwargs):
+#         return self.creat(request, *args, **kwargs)
+#
+#
+# class CarbrandDetailView(APIView):
+#
+#     def get_object(self, pk):
+#         try:
+#             return CarBrand.objects.get(pk=pk)
+#         except CarBrand.DoesNotExist:
+#             raise Http404
+#
+#     def get(self, request, pk, format= None ):
+#         print pk
+#         carbrand = self.get_object(pk)
+#         cs = CarBrandSarializers(carbrand)
+#         return Response(cs.data)
+#
+#     def put(self, request, pk, format=None):
+#         carbrand = self.get_object(pk)
+#         print carbrand
+#         cs = CarBrandSarializers(carbrand, data=request.data)
+#         if cs.is_valid():
+#             cs.save()
+#             return Response(cs.data, status=status.HTTP_201_CREATED)
+#         return Response(cs.errors, status=status.HTTP_400_BAD_REQUEST)
+#
+#     def delete(self, request, pk, format=None):
+#         print pk
+#         carbrand = self.get_object(pk)
+#         carbrand.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
