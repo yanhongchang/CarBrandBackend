@@ -14,8 +14,19 @@ from models import *
 # ---- APIView version (new) -----
 class CarbrandListView(APIView):
 
-    def get(self, request):
-        carbrands = CarBrand.objects.all()
+    @staticmethod
+    def get_objects(name):
+        try:
+            return CarBrand.objects.filter(name_cn__contains=name)
+        except CarBrand.DoesNotExist:
+            raise Http404
+
+    def get(self, request, name=None):
+        if name is None:
+            carbrands = CarBrand.objects.all()
+        else:
+            carbrands = self.get_objects(name)
+
         if carbrands:
             code = 0
         else:
