@@ -3,16 +3,28 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.core.cache import cache
+from rest_framework.pagination import PageNumberPagination
 #from rest_framework import mixins
 #from rest_framework import generics
-
 from serializers import CarBrandSarializers
+from rest_framework.renderers import JSONRenderer
+
+
 from forms import CarbrandResource
 from models import *
 
 
+class MyPageNumberPagination(PageNumberPagination):
+    page_size = 20
+    page_size_query_param = "pagesize"
+    max_page_size = 1000
+    page_query_param = "page"
+
 # ---- APIView version (new) -----
 class CarbrandListView(APIView):
+
+    renderer_classes = (JSONRenderer,)
 
     @staticmethod
     def get_objects(name):
@@ -36,6 +48,9 @@ class CarbrandListView(APIView):
         resp_data['data'] = {}
         resp_data['data']['carList'] = []
 
+        pg = MyPageNumberPagination()
+        carbrands = pg.paginate_queryset(queryset=carbrands, request=request, view=self)
+
         for carbrand in carbrands:
             carbrand_dict = CarbrandResource(carbrand).to_list_dict()
             resp_data['data']['carList'].append(carbrand_dict)
@@ -47,7 +62,12 @@ class CarbrandDetailView(APIView):
     """ carbrand detail function """
     def get_object(self, pk):
         try:
-            return CarBrand.objects.get(pk=pk)
+            if pk in cache:
+                return cache.get(pk)
+            else:
+                carbrand_detail = CarBrand.objects.get(pk=pk)
+                cache.set(pk, carbrand_detail, 15 * 60)
+                return carbrand_detail
         except CarBrand.DoesNotExist:
             raise Http404
 
