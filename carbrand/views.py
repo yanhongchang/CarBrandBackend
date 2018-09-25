@@ -60,6 +60,9 @@ class CarbrandListView(APIView):
 
 class CarbrandDetailView(APIView):
     """ carbrand detail function """
+
+    renderer_classes = (JSONRenderer,)
+
     def get_object(self, pk):
         try:
             if pk in cache:
